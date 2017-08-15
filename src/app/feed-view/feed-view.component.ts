@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-feed-view',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedViewComponent implements OnInit {
 
-  constructor() { }
+  feed: any;
+
+  constructor(public apiService: ApiService) {
+  }
 
   ngOnInit() {
+    this.apiService.getFeed().then((feed) => {
+      this.feed = feed;
+
+      console.log(this.feed);
+    });
+
   }
 
 }
