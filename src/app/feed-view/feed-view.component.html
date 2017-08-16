@@ -1,3 +1,20 @@
-<p>
-  feed-view works!
-</p>
+<div class="view-control">
+  <button (click)="filter('fb')" class="btn-primary btn fb">Facebook</button>
+  <button (click)="filter('ig')" class="btn-primary btn ig">Instagram</button>
+  <button (click)="filter('tw')" class="btn-primary btn tw">Twitter</button>
+  <button (click)="filter('go')" class="btn-primary btn go">Google</button>
+  <button (click)="filter('all')" class="btn-primary btn all">All</button>
+</div>
+
+<div class="row">
+  <div *ngFor="let item of feed" class="col-md-3 col-sm-12">
+    <div class="ind-post">
+      <div class="post" [style.background-image]="'url(' + item.original_image + ')'"></div>
+      <div (click)="open(item)" class="overlay">
+        <div class="post-text">
+          {{item.title}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 
+import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { FeedModalComponent } from '../feed-view/feed-modal/feed-modal.component';
+
 @Component({
   selector: 'app-feed-view',
   templateUrl: './feed-view.component.html',
@@ -10,16 +14,48 @@ export class FeedViewComponent implements OnInit {
 
   feed: any;
 
-  constructor(public apiService: ApiService) {
+  constructor(public apiService: ApiService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
-    this.apiService.getFeed().then((feed) => {
-      this.feed = feed;
-
-      console.log(this.feed);
+    this.apiService.getFeed('all').then((feed) => {
+      this.feed = feed.data;
+      console.log(feed);
     });
+  }
 
+  filter(data) {
+    console.log(data);
+    if (data === 'tw') {
+      this.apiService.getFeed('twitter').then((feed) => {
+        this.feed = feed.data;
+        console.log(feed);
+      });
+    }
+    if (data === 'fb') {
+      this.apiService.getFeed('facebook').then((feed) => {
+        this.feed = feed.data;
+        console.log(feed);
+      });
+    }
+    if (data === 'go') {
+      this.apiService.getFeed('googleplus').then((feed) => {
+        this.feed = feed.data;
+        console.log(feed);
+      });
+    }
+    if (data === 'all') {
+      this.apiService.getFeed('all').then((feed) => {
+        this.feed = feed.data;
+        console.log(feed);
+      });
+    }
+  }
+
+  open(data) {
+    const md = this.modalService.open(FeedModalComponent);
+    md.componentInstance.data = {data: data};
+    console.log(data);
   }
 
 }
