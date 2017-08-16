@@ -20,34 +20,33 @@ export class FeedViewComponent implements OnInit {
   ngOnInit() {
     this.apiService.getFeed('all').then((feed) => {
       this.feed = feed.data;
-      console.log(feed);
     });
   }
 
   filter(data) {
-    console.log(data);
     if (data === 'tw') {
       this.apiService.getFeed('twitter').then((feed) => {
         this.feed = feed.data;
-        console.log(feed);
       });
     }
     if (data === 'fb') {
       this.apiService.getFeed('facebook').then((feed) => {
         this.feed = feed.data;
-        console.log(feed);
       });
     }
     if (data === 'go') {
       this.apiService.getFeed('googleplus').then((feed) => {
         this.feed = feed.data;
-        console.log(feed);
+      });
+    }
+    if (data === 'ig') {
+      this.apiService.getFeed('instagram').then((feed) => {
+        this.feed = feed.data;
       });
     }
     if (data === 'all') {
       this.apiService.getFeed('all').then((feed) => {
         this.feed = feed.data;
-        console.log(feed);
       });
     }
   }
@@ -55,7 +54,6 @@ export class FeedViewComponent implements OnInit {
   open(data) {
     const md = this.modalService.open(FeedModalComponent);
     md.componentInstance.data = {data: data};
-    console.log(data);
   }
 
 }
